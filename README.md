@@ -4,8 +4,8 @@ Il constitue ma première expérience Python, Ansible, Git / GitHub, partage de 
 
 ## Description :
 Contexte du "lab" :
-La quantité de données stockées sur les serveurs de fichiers de plusieurs clients est en croissance élevée. Une phase intermediaire de traitement visant à atténuer cette croissance et le problème d'espace de stockage qui en découle est proposée.
-Le projet LADFX est l'un des outils utilisé dans cette étape intermédiaire. Ce projet, initié sous Python 3.9, a pour but d'automatiser l'archivage / compression de fichiers dont la date de dernière consultation est considérée comme trop ancienne.
+La quantité de données stockées sur les serveurs de fichiers de plusieurs clients est en croissance élevée. Une phase intermediaire de traitement visant à atténuer l'augmentation rapide et importante de la taille d'espace de stockage est proposée.
+Le projet LADFX est un des outils utilisé dans cette étape intermédiaire. Ce projet, initié sous Python 3.9, a pour but d'automatiser l'archivage / compression de fichiers dont la date de dernière consultation est considérée comme trop ancienne.
 
 
 ## Table des matières :  

@@ -11,9 +11,8 @@ from datetime import datetime, timedelta
 
 # Fonction nécéssaire pour la récursivité utilisée pour atteindre les sub-folers de l'arborescence.
 # En arguments de fonction : 'path' est le répertoire cible, time_up_to_deadline, la durée
-# de l'interval jusqu'à la date lim. cible. L'unité de temps est définie plus bas : 
-# à passer en argument de fonction (échec après plusieurs tentative).
-def fladfx(path, time_up_to_deadline = 3650, ):
+# de l'interval jusqu'à la date lim. cible. L'unité de temps est définie en argument de fonction (weeks, days, hours...)
+def function_archive_old_files(path, time_up_to_deadline = 3650):
     # Boucle de génération de la listes des fichiers
     for file in os.listdir(path):
         # Définition variable f : file. 
@@ -21,7 +20,7 @@ def fladfx(path, time_up_to_deadline = 3650, ):
         f = os.path.join(path, file)
         # Condition de génération de la liste des fichiers 
         if os.path.isdir(f):
-            fladfx(f)
+            function_archive_old_files(f, time_up_to_deadline)
         if os.path.isfile(f):
             # -----------------------------------------------
             # Exclusion du traitement : ex > zip, iso, ...
@@ -32,7 +31,7 @@ def fladfx(path, time_up_to_deadline = 3650, ):
             exc2 = re.search(".*\.iso$", f)
             # if (cond1 AND/OR COND2) AND/OR (cond3 AND/OR cond4):
             #if (exc1) or (exc2):
-            if not (exc1) or (exc2):
+            if (not (exc1)) and (not (exc2)):
                 # Si besoin affichage détection fichiers ZIP ou ISO.
                 # Décommenter la ligne ci-dessous :
                 #print("PAS FICHIER ZIP ou ISO")
@@ -43,7 +42,7 @@ def fladfx(path, time_up_to_deadline = 3650, ):
                 # La date lim étant la date en deça ou au dessus de laquelle l'action est effectuée.
                 ###time_up_to_deadline = 7
                 # Date actuelle au format datetime : 
-                # ex : 2021-05-10 12:32:11.503663
+                # ex : 2021-05-10 12:32            function_archive_old_files(f):11.503663
                 dat_now = datetime.now()
                 # Affichage de la date date locale actuelle format datetime
                 print("Date actuelle :  ", dat_now)
@@ -54,7 +53,8 @@ def fladfx(path, time_up_to_deadline = 3650, ):
                 # timedelta : intervalle de temps soustrait à la date actuelle.
                 # class datetime.timedelta(days=0, seconds=0, microseconds=0, 
                 # milliseconds=0, minutes=0, hours=0, weeks=0)
-                dat_lim_c = dat_now - timedelta(days = time_up_to_deadline)
+                ###dat_lim_c = dat_now - timedelta(days = time_up_to_deadline)
+                dat_lim_c = dat_now - time_up_to_deadline
                 # Affichage de la date limite cible 
                 print("Date lim. cible :", dat_lim_c)
                 # Conversion date limite en seconde = format "epoch"
@@ -74,7 +74,6 @@ def fladfx(path, time_up_to_deadline = 3650, ):
                 # Affichage de la date locale de dernière consultation en format ctime 
                 # ex : Thu Apr 29 15:26:26 2021
                 print("Der. consult. :", local_time)
-                # -------------------------------------------------
                 # Conditions déclenchant les actions :
                 # Cond 1 : si date de der. consult. dépasse (antérieur) à date limite 
                 if access_time < dat_lim_c_in_sec: # Renvoi True ou False 
@@ -96,4 +95,7 @@ def fladfx(path, time_up_to_deadline = 3650, ):
                     print(">>>>> Ne pas archiver ! <<<<<" + '\n') 
 
 path = '/home/guillerbe/Documents/DossFichiers'
-fladfx(path, 7, )
+# timedelta : intervalle de temps soustrait à la date actuelle.
+# class datetime.timedelta(days=0, seconds=0, microseconds=0, 
+# milliseconds=0, minutes=0, hours=0, weeks=0)
+function_archive_old_files(path, timedelta(days = 60))

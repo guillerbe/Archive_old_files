@@ -106,7 +106,10 @@ def main():
 	path = module.params['path']
 	timedelta = module.params['timedelta']
 	nbfichiers = function_archive_old_files(path, timedelta)
-    module.exit_json(changed=(nbfichiers > 0))
+    test = False
+    if (nbfichiers > 0):
+        test = True
+    module.exit_json(changed=test)
 
 
 

@@ -89,11 +89,6 @@ def function_archive_old_files(path, time_up_to_deadline = 3650):
                     os.remove(f)
                     # ++ correspond à counter = counter +1
                     counter = counter + 1
-                # -------------------------------------------------
-                # Cond 2 : autrement si date de der. consult. pas antérieur à la date lim 
-                # elif access_time > dat_lim_c_in_sec:
-                    ## => print("Der. consult. du fichier antérieur à date limite :", access_time < dat_lim_c_in_sec) # Renvoi True ou False
-                    ## => print(">>>>> Ne pas archiver ! <<<<<" + '\n')
     return counter
 
 def main():
@@ -115,3 +110,9 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# -------------------------------------------------
+# Cond 2 : autrement si date de der. consult. pas antérieur à la date lim 
+# elif access_time > dat_lim_c_in_sec:
+## => print("Der. consult. du fichier antérieur à date limite :", access_time < dat_lim_c_in_sec) # Renvoi True ou False
+## => print(">>>>> Ne pas archiver ! <<<<<" + '\n')

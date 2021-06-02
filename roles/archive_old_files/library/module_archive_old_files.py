@@ -101,16 +101,15 @@ def main():
 	path = module.params['path']
 	timedelta = module.params['timedelta']
 	nbfichiers = function_archive_old_files(path, timedelta)
-    test = False
-    if (nbfichiers > 0):
+        test01 = False
+        if nbfichiers > 0:
         test = True
-    module.exit_json(changed=test)
+        module.exit_json(changed=test)
 
 
 
 if __name__ == '__main__':
     main()
-
 # -------------------------------------------------
 # Cond 2 : autrement si date de der. consult. pas antérieur à la date lim 
 # elif access_time > dat_lim_c_in_sec:

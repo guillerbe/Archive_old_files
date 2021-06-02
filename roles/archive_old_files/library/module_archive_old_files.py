@@ -13,6 +13,7 @@ from os.path import isfile, join, getatime
 from datetime import datetime, timedelta
 
 def function_archive_old_files(path, time_up_to_deadline = 3650):
+    counter = 0
     # Boucle de génération de la listes des fichiers
     for file in os.listdir(path):
         # Définition variable f : file. 
@@ -20,7 +21,7 @@ def function_archive_old_files(path, time_up_to_deadline = 3650):
         f = os.path.join(path, file)
         # Condition de génération de la liste des fichiers 
         if os.path.isdir(f):
-            function_archive_old_files(f, time_up_to_deadline)
+            counter = counter + function_archive_old_files(f, time_up_to_deadline)
         if os.path.isfile(f):
             # -----------------------------------------------
             # Exclusion du traitement : ex > zip, iso, ...
@@ -86,11 +87,14 @@ def function_archive_old_files(path, time_up_to_deadline = 3650):
                     # ----------------------------------------------
                     # Suppression du fichier original (non archivé / compréssé)              
                     os.remove(f)
+                    # ++ correspond à counter = counter +1
+                    counter++
                 # -------------------------------------------------
                 # Cond 2 : autrement si date de der. consult. pas antérieur à la date lim 
                 # elif access_time > dat_lim_c_in_sec:
                     ## => print("Der. consult. du fichier antérieur à date limite :", access_time < dat_lim_c_in_sec) # Renvoi True ou False
                     ## => print(">>>>> Ne pas archiver ! <<<<<" + '\n')
+    return counter
 
 def main():
 	module = AnsibleModule( 
@@ -101,8 +105,8 @@ def main():
     )
 	path = module.params['path']
 	timedelta = module.params['timedelta']
-	function_archive_old_files(path, timedelta)
-    module.exit_json(changed=False)
+	nbfichiers = function_archive_old_files(path, timedelta)
+    module.exit_json(changed=(nbfichiers > 0))
 
 
 

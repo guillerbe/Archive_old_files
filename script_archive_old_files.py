@@ -94,8 +94,8 @@ def function_archive_old_files(path, time_up_to_deadline = 3650):
                     access_time < dat_lim_c_in_sec) # Renvoi True ou False
                     print(">>>>> Ne pas archiver ! <<<<<" + '\n') 
 
-path = '/home/guillerbe/Documents/DossFichiers'
+chemin = '/home/guillerbe/Documents/DossFichiers'
 # timedelta : intervalle de temps soustrait à la date actuelle.
 # class datetime.timedelta(days=0, seconds=0, microseconds=0, 
 # milliseconds=0, minutes=0, hours=0, weeks=0)
-function_archive_old_files(path, timedelta(days = 60))
+function_archive_old_files(chemin, timedelta(days = 60))

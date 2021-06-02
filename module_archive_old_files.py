@@ -101,7 +101,8 @@ def main():
     )
 	path = module.params['path']
 	timedelta = module.params['timedelta']
-	module.exit_json(changed=False)
+	function_archive_old_files(path, timedelta)
+    module.exit_json(changed=False)
 
 
 

@@ -88,7 +88,7 @@ def function_archive_old_files(path, time_up_to_deadline = 3650):
                     # Suppression du fichier original (non archivé / compréssé)              
                     os.remove(f)
                     # ++ correspond à counter = counter +1
-                    counter++
+                    counter = counter + 1
                 # -------------------------------------------------
                 # Cond 2 : autrement si date de der. consult. pas antérieur à la date lim 
                 # elif access_time > dat_lim_c_in_sec:

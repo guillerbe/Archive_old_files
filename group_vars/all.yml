@@ -1,0 +1,2 @@
+#ansible_ssh_pass: ansible
+#ansible_become_pass: ansible

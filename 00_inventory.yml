@@ -1,0 +1,6 @@
+all:
+  children:
+    fserver:
+      hosts:
+        ubsfs01:
+        ubdit01:

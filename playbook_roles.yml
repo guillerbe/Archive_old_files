@@ -1,0 +1,7 @@
+---
+- name: Mon playbook archive old files
+  hosts: all 
+  remote_user: user-ansible
+  become_user: yes
+  roles:
+  - archive_old_files

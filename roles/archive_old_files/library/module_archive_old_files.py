@@ -100,7 +100,7 @@ def main():
     module = AnsibleModule( 
         argument_spec = dict( 
             path = dict(required=True, type="str"), 
-            timedelt = dict(required=True, type="int", default = 7) 
+            timedelt = dict(type="int", default = 7) 
         )
     )
     path = module.params['path']

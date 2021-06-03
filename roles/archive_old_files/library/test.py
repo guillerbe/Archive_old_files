@@ -12,7 +12,7 @@ from os import listdir
 from os.path import isfile, join, getatime
 from datetime import datetime, timedelta
 
-def function_archive_old_files(path, time_up_to_deadline = 3650):
+def archive_old_files(path, time_up_to_deadline = 3650):
     counter = 0
     # Boucle de génération de la listes des fichiers
     for file in os.listdir(path):
@@ -21,7 +21,7 @@ def function_archive_old_files(path, time_up_to_deadline = 3650):
         f = os.path.join(path, file)
         # Condition de génération de la liste des fichiers 
         if os.path.isdir(f):
-            counter = counter + function_archive_old_files(f, time_up_to_deadline)
+            counter = counter + archive_old_files(f, time_up_to_deadline)
         if os.path.isfile(f):
             # -----------------------------------------------
             # Exclusion du traitement : ex > zip, iso, ...
@@ -43,7 +43,7 @@ def function_archive_old_files(path, time_up_to_deadline = 3650):
                 # La date lim étant la date en deça ou au dessus de laquelle l'action est effectuée.
                 # # # time_up_to_deadline = 7
                 # Date actuelle au format datetime : 
-                # ex : 2021-05-10 12:32            function_archive_old_files(f):11.503663
+                # ex : 2021-05-10 12:32            archive_old_files(f):11.503663
                 dat_now = datetime.now()
                 # Affichage de la date date locale actuelle format datetime
                 ## => print("Date actuelle :  ", dat_now)
@@ -87,32 +87,31 @@ def function_archive_old_files(path, time_up_to_deadline = 3650):
                     # ----------------------------------------------
                     # Suppression du fichier original (non archivé / compréssé)              
                     os.remove(f)
-                    # -------------------------------------------------
-                    # Cond 2 : autrement si date de der. consult. pas antérieur à la date lim 
-                    # elif access_time > dat_lim_c_in_sec:
-                    ## => print("Der. consult. du fichier antérieur à date limite :", access_time < dat_lim_c_in_sec) # Renvoi True ou False
-                    ## => print(">>>>> Ne pas archiver ! <<<<<" + '\n')
                     # ++ correspond à counter = counter +1
                     counter = counter + 1
     return counter
 
 def main():
     module = AnsibleModule( 
-        argument_spec = dict(
+        argument_spec = dict( 
             path = dict(required=True, type='str'), 
-            timedelt = dict(type='int', default = 7, aliases=['interval']) 
+            timeD = dict(required=True, type='int') 
         )
     )
     path = module.params['path']
-    #timedelt = module.params['timedelt']
-    interval = timedelta(days=module.params['timedelt'])
-    #timedelt = timedelta(days=module.params['timedelt'])
-    nbfichiers = function_archive_old_files(path, timedelt)
+    timeD = module.params['timeD']
+    nbfichiers = archive_old_files(path=path, time_up_to_deadline=timeD)
     test = False
     if nbfichiers > 0:
         test = True
     module.exit_json(changed=test)
 
 
+
 if __name__ == '__main__':
     main()
+# -------------------------------------------------
+# Cond 2 : autrement si date de der. consult. pas antérieur à la date lim 
+# elif access_time > dat_lim_c_in_sec:
+## => print("Der. consult. du fichier antérieur à date limite :", access_time < dat_lim_c_in_sec) # Renvoi True ou False
+## => print(">>>>> Ne pas archiver ! <<<<<" + '\n')

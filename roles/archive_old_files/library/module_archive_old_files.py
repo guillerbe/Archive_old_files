@@ -87,31 +87,30 @@ def function_archive_old_files(path, time_up_to_deadline = 3650):
                     # ----------------------------------------------
                     # Suppression du fichier original (non archivé / compréssé)              
                     os.remove(f)
+                    # -------------------------------------------------
+                    # Cond 2 : autrement si date de der. consult. pas antérieur à la date lim 
+                    # elif access_time > dat_lim_c_in_sec:
+                    ## => print("Der. consult. du fichier antérieur à date limite :", access_time < dat_lim_c_in_sec) # Renvoi True ou False
+                    ## => print(">>>>> Ne pas archiver ! <<<<<" + '\n')
                     # ++ correspond à counter = counter +1
                     counter = counter + 1
     return counter
 
 def main():
-	module = AnsibleModule( 
+    module = AnsibleModule( 
         argument_spec = dict( 
-            path = dict(required=True, type='str'), 
+            path      = dict(required=True, type='str'), 
             timedelta = dict(required=True, type='int') 
         )
     )
-	path = module.params['path']
-	timedelta = module.params['timedelta']
-	nbfichiers = function_archive_old_files(path, timedelta)
-        test01 = False
-        if nbfichiers > 0:
-        test = True
-        module.exit_json(changed=test)
-
+    path = module.params['path']
+    timedelta  = module.params['timedelta']
+    nbfichiers = function_archive_old_files(path, timedelta)
+    test  = False
+    if nbfichiers > 0:
+        test       = True
+    module.exit_json(changed=test)
 
 
 if __name__ == '__main__':
     main()
-# -------------------------------------------------
-# Cond 2 : autrement si date de der. consult. pas antérieur à la date lim 
-# elif access_time > dat_lim_c_in_sec:
-## => print("Der. consult. du fichier antérieur à date limite :", access_time < dat_lim_c_in_sec) # Renvoi True ou False
-## => print(">>>>> Ne pas archiver ! <<<<<" + '\n')

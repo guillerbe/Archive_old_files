@@ -99,8 +99,8 @@ def function_archive_old_files(path, time_up_to_deadline = 3650):
 def main():
     module = AnsibleModule( 
         argument_spec = dict( 
-            path = dict(required=True, type='str'), 
-            timedelt = dict(required=True, type='int') 
+            path = dict(required=True, type="str"), 
+            timedelt = dict(required=True, type="int", default = 7) 
         )
     )
     path = module.params['path']

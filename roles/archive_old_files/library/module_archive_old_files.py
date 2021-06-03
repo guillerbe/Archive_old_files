@@ -99,13 +99,13 @@ def function_archive_old_files(path, time_up_to_deadline = 3650):
 def main():
     module = AnsibleModule( 
         argument_spec = dict( 
-            path = dict(required=True, type="str"), 
-            timedelt = dict(type="int", default = 7) 
+            path = dict(required=True, type='str'), 
+            time_up_to_d = dict(type='int', default = 3650) 
         )
     )
     path = module.params['path']
-    timedelt = module.params['timedelt']
-    nbfichiers = function_archive_old_files(path, timedelt)
+    time_up_to_d = module.params['time_up_to_d']
+    nbfichiers = function_archive_old_files(path, time_up_to_d)
     test = False
     if nbfichiers > 0:
         test = True

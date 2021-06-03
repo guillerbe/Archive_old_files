@@ -1,6 +1,6 @@
 ---
 # tasks file for roles/archive_old_files
 - name: module_archive_old_files
-  module_archive_old_files:
+  test:
     path: "/home/guillerbe/Documents/DossFichiers"
-    timedelt: 3
+    timeD: 3

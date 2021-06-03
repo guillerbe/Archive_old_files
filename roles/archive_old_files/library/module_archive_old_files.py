@@ -107,7 +107,7 @@ def main():
     #timedelt = module.params['timedelt']
     interval = timedelta(days=module.params['timedelt'])
     #timedelt = timedelta(days=module.params['timedelt'])
-    nbfichiers = function_archive_old_files(path, timedelt)
+    nbfichiers = function_archive_old_files(path, interval)
     test = False
     if nbfichiers > 0:
         test = True

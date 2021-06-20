@@ -2,5 +2,5 @@
 # tasks file for roles/archive_old_files
 - name: module_archive_old_files
   module_archive_old_files:
-    path: "/home/guillerbe/Documents/DossFichiers"
-    timedelt: 91296000 # Intervalle en secondes 
+    path: "/home/guillerbe/Shared"
+    timedelt: 1296000 # Intervalle en secondes 

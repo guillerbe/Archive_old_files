@@ -23,7 +23,7 @@ def function_archive_old_files(path, time_up_to_deadline = 31536000):
         # Définition variable f : file. 
         # f : concaténation chemin absolu et nom de fichiers (join : concatenation)
         f = os.path.join(path, file)
-        # Condition de génération de la liste des fichiers + amorçage du compteur.
+        # Condition de génération de la liste des fichiers 
         if os.path.isdir(f):
             counter = counter + function_archive_old_files(f, time_up_to_deadline)
         if os.path.isfile(f):
@@ -33,26 +33,20 @@ def function_archive_old_files(path, time_up_to_deadline = 31536000):
             # Structure : re.search(pattern, str) 
             exclu1 = re.search(".*\.zip$", f)
             exclu2 = re.search(".*\.iso$", f)
-            # Condition de conjonction de négation pour assurer l'exclusion des éléments 
-            # (permet éviter la disjonction du "ou").
-            # Exemple de strucure d'encadrement entre parenthèse : 
-            # if (cond1 AND/OR COND2) AND/OR (cond3 AND/OR cond4).
+            # Condition de conjonction de négation pour assurer l'exclusion 
+            # des éléments (permet éviter la disjonction du "ou").
             if (not (exclu1)) and (not (exclu2)):
                 # ------------------------------------------------
-                # Date actuelle au format datetime : 
-                # ex : 2021-05-10 12:32            
+                # Date actuelle au format datetime : ex = 2021-05-10 12:32            
                 dat_now = datetime.now()
-                # Déf variable date lim cible : date en deça ou au dessus de laquelle l'action est effectuée. 
-                # timedelta : intervalle de temps soustrait à la date actuelle.
-                # class datetime.timedelta(days=0, seconds=0, microseconds=0, 
-                # milliseconds=0, minutes=0, hours=0, weeks=0)
+                # Déf var date lim : date en deça de laquelle l'action est effectuée. 
                 dat_lim_c = dat_now - time_up_to_deadline
                 # Conversion date limite en seconde = format "epoch"
                 dat_lim_c_in_sec = dat_lim_c.timestamp()
-                # Définition de la variable de date de dernière consultation format epoch
+                # Définition de la variable date de dernière consultation format epoch
                 access_time = getatime(f)
-                # Conditions déclenchant les actions :
-                # Cond 1 : si date de der. consult. dépasse (antérieur) à date limite 
+                # Conditions déclenchant actions : si date de der. consult. dépasse 
+                # (antérieur) à date lim
                 if access_time < dat_lim_c_in_sec: # Renvoi True ou False 
                     # ----------------------------------------------
                     # Archivage & compression : module shutil
